@@ -709,22 +709,6 @@
   <div class="confetti-container" id="confetti"></div>
   
   <script>
-    function submitForm(event) {
-  event.preventDefault();
-
-  let name = document.getElementById('userName').value;
-  let message = document.getElementById('userMessage').value;
-
-  // Save the message to localStorage
-  localStorage.setItem('userMessage', `${name}: ${message}`);
-
-  // Display the message below the form
-  document.getElementById('greetingDisplay').textContent = `${name}: ${message}`;
-  document.getElementById('userGreeting').style.display = 'block';
-
-  // Clear the form
-  document.getElementById('greetingForm').reset();
-}
     // Create stars in the background
     function createStars() {
       const starsContainer = document.getElementById('stars');
@@ -958,28 +942,4 @@
     }
 
   </style>
-</head>
-<body>
-
-  <div class="container">
-    <h1>User's Eid Message</h1>
-    
-    <!-- Display user's message here -->
-    <div class="message" id="userMessageDisplay"></div>
-
-  </div>
-
-  <script>
-    // Get the message passed from the main page
-    const message = localStorage.getItem('userMessage');
-    
-    // Display the message
-    if (message) {
-      document.getElementById('userMessageDisplay').textContent = message;
-    } else {
-      document.getElementById('userMessageDisplay').textContent = "No message found!";
-    }
-  </script>
-
-</body>
 </html>
