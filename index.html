@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eid Mubarak Celebration</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(180deg, #062b4e 0%, #1e5799 40%, #207cca 100%);
+      background-size: cover;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    .scene {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+    
+    /* Sky elements */
+    .moon {
+      position: absolute;
+      top: 50px;
+      right: 100px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: rgba(255, 235, 205, 0.9);
+      box-shadow: 0 0 30px rgba(255, 235, 205, 0.8);
+    }
+    
+    .star {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: twinkle 3s infinite alternate;
+    }
+    
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    
+    /* Mosque silhouette */
+    .mosque {
+      position: absolute;
+      bottom: 0;
+      left: 5%;
+      width: 250px;
+      height: 200px;
+      background-color: rgba(0, 0, 0, 0.8);
+      clip-path: polygon(
+        0% 100%, 12% 60%, 16% 60%, 18% 40%, 22% 40%, 25% 60%, 
+        29% 60%, 31% 40%, 35% 40%, 38% 60%, 47% 60%, 47% 30%, 
+        53% 30%, 53% 60%, 62% 60%, 65% 40%, 69% 40%, 71% 60%, 
+        75% 60%, 78% 40%, 82% 40%, 84% 60%, 88% 60%, 100% 100%
+      );
+    }
+    
+    .mosque::before {
+      content: "";
+      position: absolute;
+      top: 10%;
+      left: 45%;
+      width: 10%;
+      height: 20%;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 50% 50% 0 0;
+    }
+    
+    .mosque::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 46.5%;
+      width: 7%;
+      height: 10%;
+      background-color: rgba(0, 0, 0, 0.8);
+      clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+    }
+    
+    /* Ground */
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20%;
+      background: linear-gradient(to bottom, #3a6e35, #4c8c46);
+    }
+    
+    /* Animated elements */
+    .child {
+      position: absolute;
+      width: 30px;
+      height: 60px;
+      bottom: 20%;
+      animation: run 15s linear infinite;
+    }
+    
+    .child1 {
+      left: -50px;
+      animation-delay: 0s;
+    }
+    
+    .child2 {
+      left: -50px;
+      animation-delay: 4s;
+    }
+    
+    .child3 {
+      left: -50px;
+      animation-delay: 8s;
+    }
+    
+    @keyframes run {
+      0% { left: -50px; }
+      100% { left: calc(100% + 50px); }
+    }
+    
+    .child .head {
+      position: absolute;
+      top: 0;
+      left: 5px;
+      width: 20px;
+      height: 20px;
+      background-color: #ffdbac;
+      border-radius: 50%;
+    }
+    
+    .child .body {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      background-color: #ff6b6b;
+      border-radius: 5px;
+    }
+    
+    .child .legs {
+      position: absolute;
+      top: 50px;
+      left: 5px;
+      width: 8px;
+      height: 10px;
+      background-color: #ffdbac;
+      border-radius: 2px;
+      animation: legs 0.5s alternate infinite;
+    }
+    
+    .child .leg1 {
+      left: 5px;
+    }
+    
+    .child .leg2 {
+      left: 17px;
+      animation-delay: 0.25s;
+    }
+    
+    @keyframes legs {
+      0% { height: 10px; top: 50px; }
+      100% { height: 12px; top: 48px; }
+    }
+    
+    /* Animals */
+    .animal {
+      position: absolute;
+      bottom: 20%;
+      animation: animal-movement 20s linear infinite;
+    }
+    
+    .animal1 {
+      left: -80px;
+      animation-delay: 2s;
+    }
+    
+    .animal2 {
+      left: -80px;
+      animation-delay: 10s;
+    }
+    
+    @keyframes animal-movement {
+      0% { left: -80px; }
+      100% { left: calc(100% + 80px); }
+    }
+    
+    .animal .body {
+      position: absolute;
+      width: 60px;
+      height: 30px;
+      background-color: #a17c48;
+      border-radius: 30px 30px 15px 15px;
+    }
+    
+    .animal .head {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      left: -10px;
+      top: -5px;
+      background-color: #a17c48;
+      border-radius: 50% 40% 40% 40%;
+    }
+    
+    .animal .ear1, .animal .ear2 {
+      position: absolute;
+      width: 10px;
+      height: 15px;
+      background-color: #a17c48;
+      border-radius: 50%;
+    }
+    
+    .animal .ear1 {
+      left: -5px;
+      top: -15px;
+      transform: rotate(-30deg);
+    }
+    
+    .animal .ear2 {
+      left: 5px;
+      top: -15px;
+      transform: rotate(30deg);
+    }
+    
+    .animal .leg {
+      position: absolute;
+      width: 8px;
+      height: 15px;
+      background-color: #8c6b3e;
+      border-radius: 0 0 4px 4px;
+      bottom: -15px;
+    }
+    
+    .animal .leg1 { left: 10px; animation: animal-leg 0.5s alternate infinite; }
+    .animal .leg2 { left: 25px; animation: animal-leg 0.5s alternate infinite 0.25s; }
+    .animal .leg3 { left: 40px; animation: animal-leg 0.5s alternate infinite 0.1s; }
+    .animal .leg4 { left: 55px; animation: animal-leg 0.5s alternate infinite 0.35s; }
+    
+    @keyframes animal-leg {
+      0% { height: 15px; }
+      100% { height: 18px; }
+    }
+    
+    .animal .tail {
+      position: absolute;
+      width: 5px;
+      height: 20px;
+      background-color: #8c6b3e;
+      right: -5px;
+      top: 5px;
+      border-radius: 2px;
+      transform-origin: top center;
+      animation: tail-wag 1s ease-in-out infinite;
+    }
+    
+    @keyframes tail-wag {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(20deg); }
+      100% { transform: rotate(0deg); }
+    }
+    
+    /* Balloon elements */
+    .balloon {
+      position: absolute;
+      width: 30px;
+      height: 40px;
+      border-radius: 50%;
+      animation: float 20s linear infinite;
+    }
+    
+    .balloon1 { background-color: #ff6b6b; left: 10%; animation-delay: 0s; }
+    .balloon2 { background-color: #48dbfb; left: 30%; animation-delay: 5s; }
+    .balloon3 { background-color: #1dd1a1; left: 50%; animation-delay: 10s; }
+    .balloon4 { background-color: #feca57; left: 70%; animation-delay: 15s; }
+    .balloon5 { background-color: #ff9ff3; left: 90%; animation-delay: 7s; }
+    
+    @keyframes float {
+      0% { bottom: -50px; transform: translateX(-20px); }
+      100% { bottom: 100%; transform: translateX(20px); }
+    }
+    
+    .balloon::after {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 50px;
+      background-color: #fff;
+      bottom: -50px;
+      left: 15px;
+    }
+    
+    /* Lantern elements */
+    .lantern {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      border-radius: 20px 20px 5px 5px;
+      background: linear-gradient(180deg, #ffcc33, #ff9933);
+      box-shadow: 0 0 20px rgba(255, 204, 51, 0.8);
+      animation: lantern-sway 4s ease-in-out infinite;
+    }
+    
+    .lantern::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 10px;
+      width: 20px;
+      height: 5px;
+      background-color: #ffcc33;
+      border-radius: 0 0 10px 10px;
+    }
+    
+    .lantern1 { top: 50px; left: 20%; animation-delay: 0s; }
+    .lantern2 { top: 100px; right: 20%; animation-delay: 0.5s; }
+    .lantern3 { top: 150px; left: 40%; animation-delay: 1s; }
+    .lantern4 { top: 80px; right: 35%; animation-delay: 1.5s; }
+    
+    @keyframes lantern-sway {
+      0% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+      100% { transform: rotate(-5deg); }
+    }
+    
+    /* Clouds */
+    .cloud {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: cloud-move 30s linear infinite;
+    }
+    
+    .cloud::before, .cloud::after {
+      content: "";
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+    }
+    
+    .cloud1 {
+      width: 100px;
+      height: 40px;
+      top: 20%;
+      left: -100px;
+    }
+    
+    .cloud1::before {
+      width: 50px;
+      height: 50px;
+      top: -20px;
+      left: 15px;
+    }
+    
+    .cloud1::after {
+      width: 40px;
+      height: 40px;
+      top: -15px;
+      left: 50px;
+    }
+    
+    .cloud2 {
+      width: 120px;
+      height: 50px;
+      top: 10%;
+      left: -120px;
+      animation-delay: 10s;
+    }
+    
+    .cloud2::before {
+      width: 60px;
+      height: 60px;
+      top: -25px;
+      left: 18px;
+    }
+    
+    .cloud2::after {
+      width: 50px;
+      height: 50px;
+      top: -20px;
+      left: 60px;
+    }
+    
+    @keyframes cloud-move {
+      0% { left: -150px; }
+      100% { left: calc(100% + 150px); }
+    }
+    
+    /* Main content container */
+    .container {
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 90%;
+      width: 600px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 10;
+    }
+    
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 30px;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    .button {
+      font-size: 1.5em;
+      background-color: #e84c3d;
+      color: white;
+      border: none;
+      padding: 16px 36px;
+      cursor: pointer;
+      border-radius: 50px;
+      text-transform: uppercase;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(232, 76, 61, 0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+      margin: 20px 0;
+      letter-spacing: 1px;
+    }
+    
+    .button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(232, 76, 61, 0.6);
+    }
+    
+    .button:active {
+      transform: translateY(0);
+    }
+    
+    .message {
+      display: none;
+      font-size: 1.8em;
+      margin: 30px 0;
+      line-height: 1.6;
+      animation: fadeIn 1.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .confetti-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      display: none;
+    }
+    
+    .confetti {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background-color: transparent;
+      animation: confetti-fall 4s linear forwards;
+    }
+    
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+    
+    .form-container {
+      margin-top: 30px;
+      text-align: center;
+      display: none;
+      animation: fadeIn 1s ease-out;
+    }
+    
+    input, textarea {
+      padding: 16px;
+      margin: 10px 0;
+      font-size: 1.1em;
+      border-radius: 12px;
+      border: none;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+      transition: all 0.3s;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 3px 15px rgba(232, 76, 61, 0.3);
+    }
+    
+    textarea {
+      height: 120px;
+      resize: none;
+    }
+    
+    .form-container button {
+      padding: 14px 28px;
+      font-size: 1.2em;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    
+    .form-container button:hover {
+      background-color: #2ecc71;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(39, 174, 96, 0.6);
+    }
+    
+    #userGreeting {
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+      animation: fadeIn 1s ease-out;
+    }
+    
+    #greetingDisplay {
+      font-size: 1.2em;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+    
+    h2, h3 {
+      margin-bottom: 15px;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Fireworks */
+    .firework {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.8), 
+                  0 0 20px 10px rgba(255, 0, 0, 0.6), 
+                  0 0 30px 15px rgba(255, 0, 0, 0.4);
+      opacity: 0;
+      transform: scale(0.01);
+      animation: firework 3s ease-out forwards;
+    }
+    
+    @keyframes firework {
+      0% { 
+        opacity: 1;
+        transform: scale(0.01);
+      }
+      100% { 
+        opacity: 0;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Scene elements -->
+  <div class="scene">
+    <div class="moon"></div>
+    <div id="stars"></div>
+    
+    <!-- Mosque silhouette -->
+    <div class="mosque"></div>
+    
+    <!-- Ground -->
+    <div class="ground"></div>
+    
+    <!-- Children running -->
+    <div class="child child1">
+      <div class="head"></div>
+      <div class="body"></div>
+      <div class="legs leg1"></div>
+      <div class="legs leg2"></div>
+    </div>
+    <div class="child child2">
+      <div class="head"></div>
+      <div class="body"></div>
+      <div class="legs leg1"></div>
+      <div class="legs leg2"></div>
+    </div>
+    <div class="child child3">
+      <div class="head"></div>
+      <div class="body"></div>
+      <div class="legs leg1"></div>
+      <div class="legs leg2"></div>
+    </div>
+    
+    <!-- Animals -->
+    <div class="animal animal1">
+      <div class="head">
+        <div class="ear1"></div>
+        <div class="ear2"></div>
+      </div>
+      <div class="body"></div>
+      <div class="leg leg1"></div>
+      <div class="leg leg2"></div>
+      <div class="leg leg3"></div>
+      <div class="leg leg4"></div>
+      <div class="tail"></div>
+    </div>
+    <div class="animal animal2">
+      <div class="head">
+        <div class="ear1"></div>
+        <div class="ear2"></div>
+      </div>
+      <div class="body"></div>
+      <div class="leg leg1"></div>
+      <div class="leg leg2"></div>
+      <div class="leg leg3"></div>
+      <div class="leg leg4"></div>
+      <div class="tail"></div>
+    </div>
+    
+    <!-- Balloons -->
+    <div class="balloon balloon1"></div>
+    <div class="balloon balloon2"></div>
+    <div class="balloon balloon3"></div>
+    <div class="balloon balloon4"></div>
+    <div class="balloon balloon5"></div>
+    
+    <!-- Lanterns -->
+    <div class="lantern lantern1"></div>
+    <div class="lantern lantern2"></div>
+    <div class="lantern lantern3"></div>
+    <div class="lantern lantern4"></div>
+    
+    <!-- Clouds -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    
+    <!-- Fireworks container -->
+    <div id="fireworks"></div>
+  </div>
+  
+  <div class="container">
+    <h1>Eid Mubarak!</h1>
+    
+    <!-- Tap Here Button -->
+    <button class="button" id="tapButton" onclick="showGreeting()">Join The Celebration</button>
+    
+    <!-- Eid Greeting Message -->
+    <div class="message" id="messageBox">
+      <p>May this Eid bring joy, happiness, and prosperity to you and your loved ones. Wishing you peace and blessings on this special day!</p>
+      <button class="button" id="sendGreetingButton" onclick="showForm()">Share Your Eid Wishes</button>
+    </div>
+    
+    <!-- Contact Form -->
+    <div class="form-container" id="formContainer">
+      <h2>Send Your Eid Greeting</h2>
+      <form id="greetingForm" onsubmit="submitForm(event)">
+        <input type="text" id="userName" placeholder="Your Name" required>
+        <textarea id="userMessage" placeholder="Write your heartfelt Eid message here..." required></textarea>
+        <button type="submit">Send Blessing</button>
+      </form>
+      <div id="userGreeting" style="display:none;">
+        <h3>Your Eid Message:</h3>
+        <p id="greetingDisplay"></p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Confetti Container -->
+  <div class="confetti-container" id="confetti"></div>
+  
+  <script>
+    // Create stars in the background
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      const numStars = 100;
+      
+      for (let i = 0; i < numStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random position
+        const x = Math.random() * 100;
+        const y = Math.random() * 40;
+        
+        // Random size
+        const size = Math.random() * 3 + 1;
+        
+        // Random animation delay
+        const delay = Math.random() * 5;
+        
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.animationDelay = `${delay}s`;
+        
+        starsContainer.appendChild(star);
+      }
+    }
+    
+    // Create fireworks
+    function createFireworks() {
+      const fireworksContainer = document.getElementById('fireworks');
+      const numFireworks = 20;
+      const colors = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#ff9ff3', '#f368e0'];
+      
+      const launchFirework = () => {
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        
+        // Random position
+        const x = Math.random() * 100;
+        const y = 40 + Math.random() * 30;
+        
+        // Random color
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        firework.style.left = `${x}%`;
+        firework.style.top = `${y}%`;
+        firework.style.boxShadow = `0 0 10px 5px ${color}, 0 0 20px 10px ${color}, 0 0 30px 15px ${color}`;
+        
+        fireworksContainer.appendChild(firework);
+        
+        // Remove firework after animation completes
+        setTimeout(() => {
+          firework.remove();
+        }, 3000);
+      };
+      
+      // Launch initial fireworks
+      for (let i = 0; i < numFireworks / 2; i++) {
+        setTimeout(() => {
+          launchFirework();
+        }, i * 300);
+      }
+      
+      // Continue launching fireworks periodically
+      setInterval(() => {
+        launchFirework();
+      }, 2000);
+    }
+    
+    // Show the Eid greeting message and launch confetti when clicked
+    function showGreeting() {
+      // Show the message
+      document.getElementById('messageBox').style.display = 'block';
+      
+      // Show and create confetti
+      const confettiContainer = document.getElementById('confetti');
+      confettiContainer.style.display = 'block';
+      createConfetti();
+      
+      // Hide the initial button
+      document.getElementById('tapButton').style.display = 'none';
+      
+      // Create fireworks
+      createFireworks();
+    }
+    
+    // Create colorful confetti
+    function createConfetti() {
+      const colors = ['#e84c3d', '#3498db', '#e67e22', '#2ecc71', '#9b59b6', '#f1c40f'];
+      const confettiContainer = document.getElementById('confetti');
+      const confettiCount = 150;
+      
+      for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        
+        // Random position, rotation, and delay
+        const x = Math.random() * 100;
+        const delay = Math.random() * 2;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        confetti.style.left = `${x}%`;
+        confetti.style.backgroundColor = color;
+        confetti.style.animationDelay = `${delay}s`;
+        
+        // Random shapes (square, circle, triangle)
+        const shape = Math.floor(Math.random() * 3);
+        if (shape === 0) {
+          confetti.style.borderRadius = '50%';
+        } else if (shape === 1) {
+          confetti.style.borderRadius = '0';
+        } else {
+          confetti.style.width = '0';
+          confetti.style.height = '0';
+          confetti.style.backgroundColor = 'transparent';
+          confetti.style.borderLeft = '6px solid transparent';
+          confetti.style.borderRight = '6px solid transparent';
+          confetti.style.borderBottom = '12px solid ' + color;
+        }
+        
+        confettiContainer.appendChild(confetti);
+      }
+      
+      // Remove confetti after animation completes
+      setTimeout(() => {
+        confettiContainer.style.display = 'none';
+        confettiContainer.innerHTML = '';
+      }, 6000);
+    }
+    
+    // Show the form to enter the user's greeting
+    function showForm() {
+      document.getElementById('sendGreetingButton').style.display = 'none';
+      document.getElementById('formContainer').style.display = 'block';
+    }
+    
+    // Function to handle form submission
+    function submitForm(event) {
+      event.preventDefault();
+      
+      let name = document.getElementById('userName').value;
+      let message = document.getElementById('userMessage').value;
+      
+      // Display the message below the form
+      document.getElementById('greetingDisplay').textContent = `${name}: ${message}`;
+      document.getElementById('userGreeting').style.display = 'block';
+      
+      // Clear the form
+      document.getElementById('greetingForm').reset();
+    }
+    
+    // Initialize scene elements on page load
+    window.onload = function() {
+      createStars();
+    };
+  </script>
+</body>
+</html>
