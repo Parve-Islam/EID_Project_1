@@ -1061,6 +1061,12 @@
       <span>About</span>
     </button>
   </div>
+  <div class="form-container" id="adminKeyForm">
+    <h2>Enter Admin Key</h2>
+    <input type="text" id="adminKeyInput" placeholder="Enter admin key" required>
+    <button id="verifyAdminKeyButton">Verify</button>
+  </div>
+
   
   <script>
     // Create stars
@@ -1193,76 +1199,89 @@
           updateGreetingsList();
         }
       });
+      document.addEventListener('DOMContentLoaded', function() {
+      const adminKey = 'admin123'; // This is your unique key, only you should know it.
+      const storedAdminKey = localStorage.getItem('adminKey');
+      const adminKeyForm = document.getElementById('adminKeyForm');
+      const mainContent = document.getElementById('mainContainer');
+      const viewAllButton = document.getElementById('viewAllButton');
+      const allGreetingsModal = document.getElementById('allGreetingsModal');
+      const closeModal = document.getElementById('closeModal');
+      const allGreetingsList = document.getElementById('allGreetingsList');
       
-      // View all greetings
-      viewAllButton.addEventListener('click', function() {
-        allGreetingsModal.style.display = 'flex';
+      // Check if the admin is already authenticated
+      if (storedAdminKey === adminKey) {
+        adminKeyForm.style.display = 'none'; // Hide the admin key input form
+        mainContent.style.display = 'block'; // Show the main content
+      } else {
+        adminKeyForm.style.display = 'block'; // Show the admin key input form
+        mainContent.style.display = 'none'; // Hide the main content
+      }
+    
+      // Verify admin key input
+      document.getElementById('verifyAdminKeyButton').addEventListener('click', function() {
+        const adminKeyInput = document.getElementById('adminKeyInput').value.trim();
+        
+        if (adminKeyInput === adminKey) {
+          localStorage.setItem('adminKey', adminKey); // Store the correct key in localStorage
+          adminKeyForm.style.display = 'none'; // Hide the key input form
+          mainContent.style.display = 'block'; // Show the main content
+          alert('You have successfully logged in as Admin!');
+        } else {
+          alert('Incorrect Admin Key!');
+        }
       });
-      
-      // Close modal
+    
+      // View All Greetings (only available for admin)
+      viewAllButton.addEventListener('click', function() {
+        if (storedAdminKey === adminKey) {
+          allGreetingsModal.style.display = 'flex';
+        } else {
+          alert('You must be an Admin to view all greetings.');
+        }
+      });
+    
+      // Close the modal
       closeModal.addEventListener('click', function() {
         allGreetingsModal.style.display = 'none';
       });
       
-      // Update greetings list
+      // Update the greetings list in the modal
       function updateGreetingsList() {
+        const greetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
+        
         allGreetingsList.innerHTML = '';
-      
+        
         if (greetings.length === 0) {
           allGreetingsList.innerHTML = '<p>No greetings yet. Be the first to send an Eid greeting!</p>';
           return;
         }
-      
-        // Sort by newest first
-        const sortedGreetings = [...greetings].sort((a, b) => {
-          return new Date(b.timestamp) - new Date(a.timestamp);
-        });
-      
-        sortedGreetings.forEach(item => {
+    
+        greetings.forEach(item => {
           const greetingEl = document.createElement('div');
           greetingEl.className = 'greeting-item';
-      
           const date = new Date(item.timestamp);
-          
-          // Correctly format the date and time
-          const formattedDate = date.toLocaleString(); // This will format both date and time
-      
+          const formattedDate = date.toLocaleString();
+    
           greetingEl.innerHTML = `
             <p>"${item.greeting}"</p>
             <p>- ${item.name}</p>
             <small>${formattedDate}</small>
           `;
-      
+          
           allGreetingsList.appendChild(greetingEl);
         });
       }
-
-      
-      // Navigation functionality
-      homeNav.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      
-      celebrateNav.addEventListener('click', function() {
-        celebrateButton.click();
-      });
-      
-      greetingNav.addEventListener('click', function() {
-        if (greetingForm.style.display !== 'block') {
-          celebrateButton.click();
-        }
-        setTimeout(() => {
-          greetingForm.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      });
-      
-      infoNav.addEventListener('click', function() {
-        alert('Eid Mubarak Celebration App\nCreated with love for the Eid festival.');
-      });
-      
-      // Initialize greetings list
+    
+      // Initialize greetings list when the page loads
       updateGreetingsList();
     });
-  </script>
+
+   
+      
+        
+      
+     
+</script>
 </body>
 </html>
