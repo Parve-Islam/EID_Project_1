@@ -963,6 +963,139 @@
         <h3>Your Eid Message:</h3>
         <p id="greetingDisplay"></p>
       </div>
+
+        <!-- Link to view all greetings -->
+<a href="all-greetings.html" class="view-all-link">View All Eid Greetings</a>
+    </div>
+    
+    <!-- Confetti container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+  </div>
+  
+  <!-- Mobile navigation bar -->
+  <div class="nav-bar">
+    <button class="nav-button">
+      <i class="material-icons">home</i>
+      <span>Home</span>
+    </button>
+    <button class="nav-button" onclick="showForm()">
+      <i class="material-icons">message</i>
+      <span>Greet</span>
+    </button>
+    <button class="nav-button">
+      <i class="material-icons">people</i>
+      <span>Community</span>
+    </button>
+    <button class="nav-button">
+      <i class="material-icons">info</i>
+      <span>About</span>
+    </button>
+  </div>
+  
+  <script>
+    // Create stars
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      const numberOfStars = window.innerWidth < 480 ? 30 : 50;
       
-      <!-- Link to view all greetings -->
-      <a href="all-greetings.html" class="
+      for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 3 + 1 + 'px';
+        star.style.height = star.style.width;
+        star.style.top = Math.random() * 40 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starsContainer.appendChild(star);
+      }
+    }
+    
+    // Show greeting message
+    function showGreeting() {
+      document.getElementById('tapButton').style.display = 'none';
+      document.getElementById('messageBox').style.display = 'block';
+      createFireworks();
+      showConfetti();
+    }
+    
+    // Show form
+    function showForm() {
+      document.getElementById('messageBox').style.display = 'none';
+      document.getElementById('formContainer').style.display = 'block';
+    }
+    
+    // Submit form
+    function submitForm(event) {
+      event.preventDefault();
+      const name = document.getElementById('userName').value;
+      const message = document.getElementById('userMessage').value;
+      
+      document.getElementById('greetingDisplay').innerHTML = `<strong>${name}:</strong> ${message}`;
+      document.getElementById('userGreeting').style.display = 'block';
+      document.getElementById('greetingForm').reset();
+      
+      // Would typically send to server here
+      console.log('Greeting submitted:', { name, message });
+    }
+    
+    // Create confetti
+    function showConfetti() {
+      const confettiContainer = document.getElementById('confettiContainer');
+      confettiContainer.style.display = 'block';
+      
+      const colors = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#ff9ff3'];
+      const numberOfConfetti = window.innerWidth < 480 ? 50 : 100;
+      
+      for (let i = 0; i < numberOfConfetti; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confettiContainer.appendChild(confetti);
+      }
+      
+      // Remove confetti after animation
+      setTimeout(() => {
+        confettiContainer.innerHTML = '';
+        confettiContainer.style.display = 'none';
+      }, 6000);
+    }
+    
+    // Create fireworks
+    function createFireworks() {
+      const fireworksContainer = document.getElementById('fireworks');
+      const numberOfFireworks = window.innerWidth < 480 ? 8 : 15;
+      const colors = ['rgba(255, 0, 0, 0.8)', 'rgba(0, 255, 0, 0.8)', 'rgba(0, 0, 255, 0.8)', 
+                     'rgba(255, 255, 0, 0.8)', 'rgba(255, 0, 255, 0.8)', 'rgba(0, 255, 255, 0.8)'];
+      
+      for (let i = 0; i < numberOfFireworks; i++) {
+        setTimeout(() => {
+          const firework = document.createElement('div');
+          firework.className = 'firework';
+          
+          // Position randomly in upper portion of screen
+          firework.style.left = Math.random() * 100 + '%';
+          firework.style.top = Math.random() * 50 + 5 + '%';
+          
+          // Random color
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          firework.style.boxShadow = `0 0 10px 5px ${color}, 0 0 20px 10px ${color.replace('0.8', '0.6')}, 0 0 30px 15px ${color.replace('0.8', '0.4')}`;
+          
+          fireworksContainer.appendChild(firework);
+          
+          // Remove after animation completes
+          setTimeout(() => {
+            firework.remove();
+          }, 3000);
+        }, i * 500); // Stagger firework launch
+      }
+    }
+    
+    // Initialize when page loads
+    window.onload = function() {
+      createStars();
+    };
+  </script>
+</body>
+</html>
