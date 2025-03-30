@@ -1151,6 +1151,16 @@
       const allGreetingsModal = document.getElementById('allGreetingsModal');
       const closeModal = document.getElementById('closeModal');
       const allGreetingsList = document.getElementById('allGreetingsList');
+      document.addEventListener('DOMContentLoaded', function() {
+      const adminKey = 'admin123'; // This is your unique key, only you should know it.
+      const storedAdminKey = localStorage.getItem('adminKey');
+      const adminKeyForm = document.getElementById('adminKeyForm');
+      const mainContent = document.getElementById('mainContainer');
+      const viewAllButton = document.getElementById('viewAllButton');
+      const allGreetingsModal = document.getElementById('allGreetingsModal');
+      const closeModal = document.getElementById('closeModal');
+      const allGreetingsList = document.getElementById('allGreetingsList');
+      
       
       // Navigation buttons
       const homeNav = document.getElementById('homeNav');
@@ -1199,16 +1209,6 @@
           updateGreetingsList();
         }
       });
-      document.addEventListener('DOMContentLoaded', function() {
-      const adminKey = 'admin123'; // This is your unique key, only you should know it.
-      const storedAdminKey = localStorage.getItem('adminKey');
-      const adminKeyForm = document.getElementById('adminKeyForm');
-      const mainContent = document.getElementById('mainContainer');
-      const viewAllButton = document.getElementById('viewAllButton');
-      const allGreetingsModal = document.getElementById('allGreetingsModal');
-      const closeModal = document.getElementById('closeModal');
-      const allGreetingsList = document.getElementById('allGreetingsList');
-      
       // Check if the admin is already authenticated
       if (storedAdminKey === adminKey) {
         adminKeyForm.style.display = 'none'; // Hide the admin key input form
