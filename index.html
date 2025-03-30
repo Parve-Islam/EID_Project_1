@@ -1207,33 +1207,36 @@
       // Update greetings list
       function updateGreetingsList() {
         allGreetingsList.innerHTML = '';
-        
+      
         if (greetings.length === 0) {
           allGreetingsList.innerHTML = '<p>No greetings yet. Be the first to send an Eid greeting!</p>';
           return;
         }
-        
+      
         // Sort by newest first
         const sortedGreetings = [...greetings].sort((a, b) => {
           return new Date(b.timestamp) - new Date(a.timestamp);
         });
-        
+      
         sortedGreetings.forEach(item => {
           const greetingEl = document.createElement('div');
           greetingEl.className = 'greeting-item';
-          
+      
           const date = new Date(item.timestamp);
-          const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
           
+          // Correctly format the date and time
+          const formattedDate = date.toLocaleString(); // This will format both date and time
+      
           greetingEl.innerHTML = `
             <p>"${item.greeting}"</p>
             <p>- ${item.name}</p>
             <small>${formattedDate}</small>
           `;
-          
+      
           allGreetingsList.appendChild(greetingEl);
         });
       }
+
       
       // Navigation functionality
       homeNav.addEventListener('click', function() {
