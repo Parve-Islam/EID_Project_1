@@ -1096,74 +1096,75 @@
         starsContainer.appendChild(star);
       }
       
-      // Celebration button
-      const celebrateButton = document.getElementById('celebrateButton');
-      const message = document.getElementById('message');
-      const greetingForm = document.getElementById('greetingForm');
-      
-      celebrateButton.addEventListener('click', function() {
-        // Show message
-        message.style.display = 'block';
-        
-        // Show greeting form
-        greetingForm.style.display = 'block';
-        
-        // Create confetti
-        createConfetti();
-        
-        // Create fireworks
-        createFireworks();
-        
-        // Scroll to form
-        setTimeout(() => {
-          greetingForm.scrollIntoView({ behavior: 'smooth' });
-        }, 1000);
-      });
-      
-      // Create confetti function
-      function createConfetti() {
-        const confettiContainer = document.getElementById('confettiContainer');
-        confettiContainer.style.display = 'block';
-        confettiContainer.innerHTML = '';
-        
-        const colors = ['#e84c3d', '#2ecc71', '#3498db', '#f1c40f', '#9b59b6', '#1abc9c'];
-        
-        for (let i = 0; i < 100; i++) {
-          const confetti = document.createElement('div');
-          confetti.classList.add('confetti');
-          confetti.style.left = Math.random() * 100 + 'vw';
-          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-          confetti.style.animationDuration = Math.random() * 2 + 3 + 's';
-          confettiContainer.appendChild(confetti);
-        }
-        
-        setTimeout(() => {
-          confettiContainer.style.display = 'none';
-        }, 5000);
+     // Celebration button click handler
+    const celebrateButton = document.getElementById('celebrateButton');
+    const message = document.getElementById('message');
+    const greetingForm = document.getElementById('greetingForm');
+
+    celebrateButton.addEventListener('click', function () {
+      // Show the Eid message
+      message.style.display = 'block';
+
+      // Show the greeting form
+      greetingForm.style.display = 'block';
+
+      // Trigger confetti and fireworks
+      createConfetti();
+      createFireworks();
+
+      // Scroll to greeting form after a delay for animation effects
+      setTimeout(() => {
+        greetingForm.scrollIntoView({ behavior: 'smooth' });
+      }, 1000); // 1 second delay for animation
+    });
+
+    // Create confetti effect
+    function createConfetti() {
+      const confettiContainer = document.getElementById('confettiContainer');
+      confettiContainer.style.display = 'block';
+      confettiContainer.innerHTML = ''; // Clear any existing confetti
+
+      const colors = ['#e84c3d', '#2ecc71', '#3498db', '#f1c40f', '#9b59b6', '#1abc9c'];
+
+      // Create 100 confetti pieces
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw'; // Random X position
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; // Random color
+        confetti.style.animationDuration = Math.random() * 2 + 3 + 's'; // Random duration
+        confettiContainer.appendChild(confetti);
       }
-      
-      // Create fireworks function
-      function createFireworks() {
-        const scene = document.querySelector('.scene');
-        const colors = ['#e84c3d', '#2ecc71', '#3498db', '#f1c40f', '#9b59b6', '#1abc9c'];
-        
-        for (let i = 0; i < 5; i++) {
+
+      // Hide confetti after 5 seconds
+      setTimeout(() => {
+        confettiContainer.style.display = 'none';
+      }, 5000);
+    }
+
+    // Create fireworks effect
+    function createFireworks() {
+      const scene = document.querySelector('.scene');
+      const colors = ['#e84c3d', '#2ecc71', '#3498db', '#f1c40f', '#9b59b6', '#1abc9c'];
+
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          const firework = document.createElement('div');
+          firework.classList.add('firework');
+          firework.style.left = Math.random() * 80 + 10 + '%'; // Random X position
+          firework.style.top = Math.random() * 40 + 10 + '%'; // Random Y position
+          firework.style.boxShadow = `0 0 10px 5px ${colors[Math.floor(Math.random() * colors.length)]}, 
+                                      0 0 20px 10px ${colors[Math.floor(Math.random() * colors.length)]}, 
+                                      0 0 30px 15px ${colors[Math.floor(Math.random() * colors.length)]}`;
+          scene.appendChild(firework);
+
+          // Remove the firework after animation
           setTimeout(() => {
-            const firework = document.createElement('div');
-            firework.classList.add('firework');
-            firework.style.left = Math.random() * 80 + 10 + '%';
-            firework.style.top = Math.random() * 40 + 10 + '%';
-            firework.style.boxShadow = `0 0 10px 5px ${colors[Math.floor(Math.random() * colors.length)]}, 
-                                        0 0 20px 10px ${colors[Math.floor(Math.random() * colors.length)]}, 
-                                        0 0 30px 15px ${colors[Math.floor(Math.random() * colors.length)]}`;
-            scene.appendChild(firework);
-            
-            setTimeout(() => {
-              firework.remove();
-            }, 3000);
-          }, i * 500);
-        }
+            firework.remove();
+          }, 3000); // 3 seconds for firework duration
+        }, i * 500); // Staggered fireworks
       }
+    }
       
       // Submit greeting
       const greetingForm = document.getElementById('greetingForm');
