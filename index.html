@@ -1068,12 +1068,19 @@
   </div>
 
   
-  <script>
+  
+    
+    
+   
+   
+        
+            
+   <script>
     // Create stars
     function createStars() {
       const starsContainer = document.getElementById('stars');
       const numStars = Math.floor(window.innerWidth / 5);
-      
+
       for (let i = 0; i < numStars; i++) {
         const star = document.createElement('div');
         star.className = 'star';
@@ -1085,203 +1092,95 @@
         starsContainer.appendChild(star);
       }
     }
-    
-    // Create confetti
-    function createConfetti() {
-      const container = document.getElementById('confettiContainer');
-      container.innerHTML = '';
-      container.style.display = 'block';
-      
-      const colors = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#ff9ff3', '#f368e0'];
-      const numConfetti = 100;
-      
-      for (let i = 0; i < numConfetti; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.left = Math.random() * 100 + '%';
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-        container.appendChild(confetti);
-      }
-      
-      setTimeout(() => {
-        container.style.display = 'none';
-      }, 5000);
-    }
-    
-    // Create fireworks
-    function createFireworks() {
-      const scene = document.querySelector('.scene');
-      const numFireworks = 10;
-      
-      const colors = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#ff9ff3'];
-      
-      for (let i = 0; i < numFireworks; i++) {
-        setTimeout(() => {
-          const firework = document.createElement('div');
-          firework.className = 'firework';
-          firework.style.left = Math.random() * 100 + '%';
-          firework.style.top = Math.random() * 60 + '%';
-          firework.style.boxShadow = `0 0 10px 5px ${colors[Math.floor(Math.random() * colors.length)]}, 
-                        0 0 20px 10px ${colors[Math.floor(Math.random() * colors.length)]}, 
-                        0 0 30px 15px ${colors[Math.floor(Math.random() * colors.length)]}`;
-          
-          scene.appendChild(firework);
-          
-          setTimeout(() => {
-            scene.removeChild(firework);
-          }, 3000);
-        }, i * 300);
-      }
-    }
-    
-    // Event handlers
-    document.addEventListener('DOMContentLoaded', function() {
-      createStars();
-      
-      const celebrateButton = document.getElementById('celebrateButton');
-      const message = document.getElementById('message');
-      const greetingForm = document.getElementById('greetingForm');
-      const submitGreeting = document.getElementById('submitGreeting');
-      const nameInput = document.getElementById('nameInput');
-      const greetingInput = document.getElementById('greetingInput');
-      const userGreeting = document.getElementById('userGreeting');
-      const greetingDisplay = document.getElementById('greetingDisplay');
-      const viewAllButton = document.getElementById('viewAllButton');
-      const allGreetingsModal = document.getElementById('allGreetingsModal');
-      const closeModal = document.getElementById('closeModal');
-      const allGreetingsList = document.getElementById('allGreetingsList');
-      document.addEventListener('DOMContentLoaded', function() {
-      const adminKey = 'admin123'; // This is your unique key, only you should know it.
-      const storedAdminKey = localStorage.getItem('adminKey');
-      const adminKeyForm = document.getElementById('adminKeyForm');
-      const mainContent = document.getElementById('mainContainer');
-      const viewAllButton = document.getElementById('viewAllButton');
-      const allGreetingsModal = document.getElementById('allGreetingsModal');
-      const closeModal = document.getElementById('closeModal');
-      const allGreetingsList = document.getElementById('allGreetingsList');
-      
-      
-      // Navigation buttons
-      const homeNav = document.getElementById('homeNav');
-      const celebrateNav = document.getElementById('celebrateNav');
-      const greetingNav = document.getElementById('greetingNav');
-      const infoNav = document.getElementById('infoNav');
-      
-      // Store greetings
-      let greetings = [];
-      
-      // Get stored greetings from localStorage
-      const storedGreetings = localStorage.getItem('eidGreetings');
-      if (storedGreetings) {
-        greetings = JSON.parse(storedGreetings);
-      }
-      
-      // Celebrate button click
-      celebrateButton.addEventListener('click', function() {
-        message.style.display = 'block';
-        greetingForm.style.display = 'block';
-        createConfetti();
-        createFireworks();
-      });
-      
-      // Submit greeting
-      submitGreeting.addEventListener('click', function() {
-        const name = nameInput.value.trim();
-        const greeting = greetingInput.value.trim();
-        
-        if (name && greeting) {
-          const newGreeting = {
-            name: name,
-            greeting: greeting,
-            timestamp: new Date().toISOString()
-          };
-          
-          greetings.push(newGreeting);
-          localStorage.setItem('eidGreetings', JSON.stringify(greetings));
-          
-          greetingDisplay.textContent = `"${greeting}" - ${name}`;
-          userGreeting.style.display = 'block';
-          
-          nameInput.value = '';
-          greetingInput.value = '';
-          
-          updateGreetingsList();
-        }
-      });
-      // Check if the admin is already authenticated
-      if (storedAdminKey === adminKey) {
-        adminKeyForm.style.display = 'none'; // Hide the admin key input form
-        mainContent.style.display = 'block'; // Show the main content
-      } else {
-        adminKeyForm.style.display = 'block'; // Show the admin key input form
-        mainContent.style.display = 'none'; // Hide the main content
-      }
-    
-      // Verify admin key input
-      document.getElementById('verifyAdminKeyButton').addEventListener('click', function() {
-        const adminKeyInput = document.getElementById('adminKeyInput').value.trim();
-        
-        if (adminKeyInput === adminKey) {
-          localStorage.setItem('adminKey', adminKey); // Store the correct key in localStorage
-          adminKeyForm.style.display = 'none'; // Hide the key input form
-          mainContent.style.display = 'block'; // Show the main content
-          alert('You have successfully logged in as Admin!');
-        } else {
-          alert('Incorrect Admin Key!');
-        }
-      });
-    
-      // View All Greetings (only available for admin)
-      viewAllButton.addEventListener('click', function() {
-        if (storedAdminKey === adminKey) {
-          allGreetingsModal.style.display = 'flex';
-        } else {
-          alert('You must be an Admin to view all greetings.');
-        }
-      });
-    
-      // Close the modal
-      closeModal.addEventListener('click', function() {
-        allGreetingsModal.style.display = 'none';
-      });
-      
-      // Update the greetings list in the modal
-      function updateGreetingsList() {
-        const greetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
-        
-        allGreetingsList.innerHTML = '';
-        
-        if (greetings.length === 0) {
-          allGreetingsList.innerHTML = '<p>No greetings yet. Be the first to send an Eid greeting!</p>';
-          return;
-        }
-    
-        greetings.forEach(item => {
-          const greetingEl = document.createElement('div');
-          greetingEl.className = 'greeting-item';
-          const date = new Date(item.timestamp);
-          const formattedDate = date.toLocaleString();
-    
-          greetingEl.innerHTML = `
-            <p>"${item.greeting}"</p>
-            <p>- ${item.name}</p>
-            <small>${formattedDate}</small>
-          `;
-          
-          allGreetingsList.appendChild(greetingEl);
-        });
-      }
-    
-      // Initialize greetings list when the page loads
-      updateGreetingsList();
+
+    // Handle 'Celebrate Eid' button click
+    document.getElementById('celebrateButton').addEventListener('click', function() {
+      document.getElementById('eidMubarakContainer').style.display = 'none';
+      document.getElementById('message').style.display = 'block';
+      document.getElementById('greetingForm').style.display = 'block';
+      createConfetti();
+      createFireworks();
     });
 
-   
-      
-        
-      
-     
-</script>
+    // Submit greeting functionality
+    document.getElementById('submitGreeting').addEventListener('click', function() {
+      const name = document.getElementById('nameInput').value.trim();
+      const greeting = document.getElementById('greetingInput').value.trim();
+
+      if (name && greeting) {
+        const newGreeting = { name: name, greeting: greeting, timestamp: new Date().toISOString() };
+        let greetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
+        greetings.push(newGreeting);
+        localStorage.setItem('eidGreetings', JSON.stringify(greetings));
+
+        document.getElementById('greetingDisplay').textContent = `"${greeting}" - ${name}`;
+        document.getElementById('userGreeting').style.display = 'block';
+
+        document.getElementById('nameInput').value = '';
+        document.getElementById('greetingInput').value = '';
+        updateGreetingsList();
+      }
+    });
+
+    // Admin key verification functionality
+    const adminKey = 'admin123';
+    const storedAdminKey = localStorage.getItem('adminKey');
+
+    if (storedAdminKey === adminKey) {
+      document.getElementById('adminKeyForm').style.display = 'none';
+      document.getElementById('eidMubarakContainer').style.display = 'block';
+    } else {
+      document.getElementById('adminKeyForm').style.display = 'block';
+    }
+
+    document.getElementById('verifyAdminKeyButton').addEventListener('click', function() {
+      const adminKeyInput = document.getElementById('adminKeyInput').value.trim();
+      if (adminKeyInput === adminKey) {
+        localStorage.setItem('adminKey', adminKey);
+        document.getElementById('adminKeyForm').style.display = 'none';
+        document.getElementById('eidMubarakContainer').style.display = 'block';
+        alert('Admin authenticated!');
+      } else {
+        alert('Incorrect Admin Key!');
+      }
+    });
+
+    // Show all greetings (admin only)
+    document.getElementById('viewAllButton').addEventListener('click', function() {
+      if (storedAdminKey === adminKey) {
+        document.getElementById('allGreetingsModal').style.display = 'flex';
+      } else {
+        alert('You must be an Admin to view all greetings.');
+      }
+    });
+
+    // Close all greetings modal
+    document.getElementById('closeModal').addEventListener('click', function() {
+      document.getElementById('allGreetingsModal').style.display = 'none';
+    });
+
+    // Update the greetings list in the modal
+    function updateGreetingsList() {
+      const greetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
+      const allGreetingsList = document.getElementById('allGreetingsList');
+      allGreetingsList.innerHTML = '';
+
+      if (greetings.length === 0) {
+        allGreetingsList.innerHTML = '<p>No greetings yet. Be the first to send an Eid greeting!</p>';
+      }
+
+      greetings.forEach(item => {
+        const greetingEl = document.createElement('div');
+        greetingEl.className = 'greeting-item';
+        const date = new Date(item.timestamp);
+        const formattedDate = date.toLocaleString();
+        greetingEl.innerHTML = `<p>"${item.greeting}"</p><p>- ${item.name}</p><small>${formattedDate}</small>`;
+        allGreetingsList.appendChild(greetingEl);
+      });
+    }
+
+    // Initialize greetings list
+    updateGreetingsList();
+  </script>
 </body>
 </html>
