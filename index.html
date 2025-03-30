@@ -41,12 +41,20 @@
     .moon {
       position: absolute;
       top: 50px;
-      right: 100px;
-      width: 80px;
-      height: 80px;
+      right: 10%;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       background-color: rgba(255, 235, 205, 0.9);
       box-shadow: 0 0 30px rgba(255, 235, 205, 0.8);
+    }
+    
+    @media (max-width: 480px) {
+      .moon {
+        width: 40px;
+        height: 40px;
+        top: 30px;
+      }
     }
     
     .star {
@@ -66,8 +74,8 @@
       position: absolute;
       bottom: 0;
       left: 5%;
-      width: 250px;
-      height: 200px;
+      width: 180px;
+      height: 150px;
       background-color: rgba(0, 0, 0, 0.8);
       clip-path: polygon(
         0% 100%, 12% 60%, 16% 60%, 18% 40%, 22% 40%, 25% 60%, 
@@ -75,6 +83,13 @@
         53% 30%, 53% 60%, 62% 60%, 65% 40%, 69% 40%, 71% 60%, 
         75% 60%, 78% 40%, 82% 40%, 84% 60%, 88% 60%, 100% 100%
       );
+    }
+    
+    @media (max-width: 480px) {
+      .mosque {
+        width: 120px;
+        height: 100px;
+      }
     }
     
     .mosque::before {
@@ -109,13 +124,20 @@
       background: linear-gradient(to bottom, #3a6e35, #4c8c46);
     }
     
-    /* Animated elements */
+    /* Animated elements - scaled for mobile */
     .child {
       position: absolute;
-      width: 30px;
-      height: 60px;
+      width: 24px;
+      height: 48px;
       bottom: 20%;
       animation: run 15s linear infinite;
+    }
+    
+    @media (max-width: 480px) {
+      .child {
+        width: 20px;
+        height: 40px;
+      }
     }
     
     .child1 {
@@ -141,53 +163,95 @@
     .child .head {
       position: absolute;
       top: 0;
-      left: 5px;
-      width: 20px;
-      height: 20px;
+      left: 4px;
+      width: 16px;
+      height: 16px;
       background-color: #ffdbac;
       border-radius: 50%;
     }
     
     .child .body {
       position: absolute;
-      top: 20px;
+      top: 16px;
       left: 0;
-      width: 30px;
-      height: 30px;
+      width: 24px;
+      height: 24px;
       background-color: #ff6b6b;
       border-radius: 5px;
     }
     
+    @media (max-width: 480px) {
+      .child .head {
+        width: 12px;
+        height: 12px;
+        left: 4px;
+      }
+      
+      .child .body {
+        top: 12px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+    
     .child .legs {
       position: absolute;
-      top: 50px;
-      left: 5px;
-      width: 8px;
-      height: 10px;
+      top: 40px;
+      left: 4px;
+      width: 6px;
+      height: 8px;
       background-color: #ffdbac;
       border-radius: 2px;
       animation: legs 0.5s alternate infinite;
     }
     
+    @media (max-width: 480px) {
+      .child .legs {
+        top: 32px;
+        width: 5px;
+        height: 8px;
+      }
+    }
+    
     .child .leg1 {
-      left: 5px;
+      left: 4px;
     }
     
     .child .leg2 {
-      left: 17px;
+      left: 14px;
       animation-delay: 0.25s;
     }
     
-    @keyframes legs {
-      0% { height: 10px; top: 50px; }
-      100% { height: 12px; top: 48px; }
+    @media (max-width: 480px) {
+      .child .leg2 {
+        left: 11px;
+      }
     }
     
-    /* Animals */
+    @keyframes legs {
+      0% { height: 8px; top: 40px; }
+      100% { height: 10px; top: 38px; }
+    }
+    
+    @media (max-width: 480px) {
+      @keyframes legs {
+        0% { height: 8px; top: 32px; }
+        100% { height: 10px; top: 30px; }
+      }
+    }
+    
+    /* Animals - scaled for mobile */
     .animal {
       position: absolute;
       bottom: 20%;
       animation: animal-movement 20s linear infinite;
+      transform: scale(0.8);
+    }
+    
+    @media (max-width: 480px) {
+      .animal {
+        transform: scale(0.6);
+      }
     }
     
     .animal1 {
@@ -289,6 +353,13 @@
       animation: float 20s linear infinite;
     }
     
+    @media (max-width: 480px) {
+      .balloon {
+        width: 20px;
+        height: 30px;
+      }
+    }
+    
     .balloon1 { background-color: #ff6b6b; left: 10%; animation-delay: 0s; }
     .balloon2 { background-color: #48dbfb; left: 30%; animation-delay: 5s; }
     .balloon3 { background-color: #1dd1a1; left: 50%; animation-delay: 10s; }
@@ -304,29 +375,44 @@
       content: "";
       position: absolute;
       width: 1px;
-      height: 50px;
+      height: 40px;
       background-color: #fff;
-      bottom: -50px;
-      left: 15px;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    @media (max-width: 480px) {
+      .balloon::after {
+        height: 30px;
+        bottom: -30px;
+      }
     }
     
     /* Lantern elements */
     .lantern {
       position: absolute;
-      width: 40px;
-      height: 60px;
-      border-radius: 20px 20px 5px 5px;
+      width: 30px;
+      height: 45px;
+      border-radius: 15px 15px 5px 5px;
       background: linear-gradient(180deg, #ffcc33, #ff9933);
       box-shadow: 0 0 20px rgba(255, 204, 51, 0.8);
       animation: lantern-sway 4s ease-in-out infinite;
+    }
+    
+    @media (max-width: 480px) {
+      .lantern {
+        width: 20px;
+        height: 30px;
+      }
     }
     
     .lantern::after {
       content: "";
       position: absolute;
       bottom: -5px;
-      left: 10px;
-      width: 20px;
+      left: 25%;
+      width: 50%;
       height: 5px;
       background-color: #ffcc33;
       border-radius: 0 0 10px 10px;
@@ -401,6 +487,46 @@
       left: 60px;
     }
     
+    @media (max-width: 768px) {
+      .cloud1 {
+        width: 80px;
+        height: 30px;
+      }
+      
+      .cloud1::before {
+        width: 40px;
+        height: 40px;
+        top: -18px;
+        left: 12px;
+      }
+      
+      .cloud1::after {
+        width: 30px;
+        height: 30px;
+        top: -12px;
+        left: 40px;
+      }
+      
+      .cloud2 {
+        width: 90px;
+        height: 40px;
+      }
+      
+      .cloud2::before {
+        width: 45px;
+        height: 45px;
+        top: -20px;
+        left: 15px;
+      }
+      
+      .cloud2::after {
+        width: 40px;
+        height: 40px;
+        top: -15px;
+        left: 45px;
+      }
+    }
+    
     @keyframes cloud-move {
       0% { left: -150px; }
       100% { left: calc(100% + 150px); }
@@ -410,39 +536,62 @@
     .container {
       background-color: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
-      padding: 40px;
+      padding: 30px 20px;
       border-radius: 20px;
-      max-width: 90%;
-      width: 600px;
+      width: 90%;
+      max-width: 500px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       position: relative;
       border: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 10;
+      margin: 0 auto;
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px 15px;
+      }
     }
     
     h1 {
-      font-size: 2.8em;
-      margin-bottom: 30px;
+      font-size: 2.5em;
+      margin-bottom: 25px;
       color: #fff;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       font-weight: 700;
       letter-spacing: 1px;
     }
     
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+    }
+    
     .button {
-      font-size: 1.5em;
+      font-size: 1.2em;
       background-color: #e84c3d;
       color: white;
       border: none;
-      padding: 16px 36px;
+      padding: 14px 28px;
       cursor: pointer;
       border-radius: 50px;
       text-transform: uppercase;
       font-weight: 600;
       box-shadow: 0 5px 15px rgba(232, 76, 61, 0.4);
       transition: transform 0.3s, box-shadow 0.3s;
-      margin: 20px 0;
+      margin: 15px 0;
       letter-spacing: 1px;
+      max-width: 100%;
+      white-space: normal;
+    }
+    
+    @media (max-width: 480px) {
+      .button {
+        font-size: 1em;
+        padding: 12px 24px;
+      }
     }
     
     .button:hover {
@@ -456,10 +605,17 @@
     
     .message {
       display: none;
-      font-size: 1.8em;
-      margin: 30px 0;
+      font-size: 1.5em;
+      margin: 25px 0;
       line-height: 1.6;
       animation: fadeIn 1.5s ease-out;
+    }
+    
+    @media (max-width: 480px) {
+      .message {
+        font-size: 1.2em;
+        margin: 20px 0;
+      }
     }
     
     @keyframes fadeIn {
@@ -486,10 +642,17 @@
     
     .confetti {
       position: absolute;
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       background-color: transparent;
       animation: confetti-fall 4s linear forwards;
+    }
+    
+    @media (max-width: 480px) {
+      .confetti {
+        width: 8px;
+        height: 8px;
+      }
     }
     
     @keyframes confetti-fall {
@@ -504,16 +667,16 @@
     }
     
     .form-container {
-      margin-top: 30px;
+      margin-top: 25px;
       text-align: center;
       display: none;
       animation: fadeIn 1s ease-out;
     }
     
     input, textarea {
-      padding: 16px;
-      margin: 10px 0;
-      font-size: 1.1em;
+      padding: 14px;
+      margin: 8px 0;
+      font-size: 1em;
       border-radius: 12px;
       border: none;
       width: 100%;
@@ -523,19 +686,32 @@
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     }
     
+    @media (max-width: 480px) {
+      input, textarea {
+        padding: 12px;
+        font-size: 0.9em;
+      }
+    }
+    
     input:focus, textarea:focus {
       outline: none;
       box-shadow: 0 3px 15px rgba(232, 76, 61, 0.3);
     }
     
     textarea {
-      height: 120px;
+      height: 100px;
       resize: none;
     }
     
+    @media (max-width: 480px) {
+      textarea {
+        height: 80px;
+      }
+    }
+    
     .form-container button {
-      padding: 14px 28px;
-      font-size: 1.2em;
+      padding: 12px 24px;
+      font-size: 1.1em;
       background-color: #27ae60;
       color: white;
       border: none;
@@ -547,6 +723,13 @@
       font-weight: 600;
     }
     
+    @media (max-width: 480px) {
+      .form-container button {
+        padding: 10px 20px;
+        font-size: 1em;
+      }
+    }
+    
     .form-container button:hover {
       background-color: #2ecc71;
       transform: translateY(-3px);
@@ -556,21 +739,54 @@
     #userGreeting {
       background-color: rgba(255, 255, 255, 0.15);
       border-radius: 12px;
-      padding: 20px;
-      margin-top: 30px;
+      padding: 15px;
+      margin-top: 20px;
       animation: fadeIn 1s ease-out;
     }
     
     #greetingDisplay {
-      font-size: 1.2em;
-      margin-top: 10px;
+      font-size: 1.1em;
+      margin-top: 8px;
       line-height: 1.5;
+    }
+    
+    @media (max-width: 480px) {
+      #greetingDisplay {
+        font-size: 1em;
+      }
     }
     
     h2, h3 {
       margin-bottom: 15px;
       color: #fff;
       text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.3em;
+      }
+      
+      h3 {
+        font-size: 1.1em;
+      }
+    }
+    
+    /* View all greetings link */
+    .view-all-link {
+      margin-top: 15px;
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    
+    .view-all-link:hover {
+      background-color: rgba(255, 255, 255, 0.3);
     }
     
     /* Fireworks */
@@ -597,7 +813,52 @@
         transform: scale(1);
       }
     }
+    
+    /* Navigation bar for mobile */
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      z-index: 100;
+    }
+    
+    .nav-button {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 0.9em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .nav-button i {
+      font-size: 1.5em;
+      margin-bottom: 5px;
+    }
+    
+    /* Material icons (use CDN in real implementation) */
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+    }
   </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
   <!-- Scene elements -->
@@ -702,171 +963,6 @@
         <h3>Your Eid Message:</h3>
         <p id="greetingDisplay"></p>
       </div>
-    </div>
-  </div>
-  
-  <!-- Confetti Container -->
-  <div class="confetti-container" id="confetti"></div>
-  
-  <script>
-    // Create stars in the background
-    function createStars() {
-      const starsContainer = document.getElementById('stars');
-      const numStars = 100;
       
-      for (let i = 0; i < numStars; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        
-        // Random position
-        const x = Math.random() * 100;
-        const y = Math.random() * 40;
-        
-        // Random size
-        const size = Math.random() * 3 + 1;
-        
-        // Random animation delay
-        const delay = Math.random() * 5;
-        
-        star.style.left = `${x}%`;
-        star.style.top = `${y}%`;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.animationDelay = `${delay}s`;
-        
-        starsContainer.appendChild(star);
-      }
-    }
-    
-    // Create fireworks
-    function createFireworks() {
-      const fireworksContainer = document.getElementById('fireworks');
-      const numFireworks = 20;
-      const colors = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#ff9ff3', '#f368e0'];
-      
-      const launchFirework = () => {
-        const firework = document.createElement('div');
-        firework.classList.add('firework');
-        
-        // Random position
-        const x = Math.random() * 100;
-        const y = 40 + Math.random() * 30;
-        
-        // Random color
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
-        firework.style.left = `${x}%`;
-        firework.style.top = `${y}%`;
-        firework.style.boxShadow = `0 0 10px 5px ${color}, 0 0 20px 10px ${color}, 0 0 30px 15px ${color}`;
-        
-        fireworksContainer.appendChild(firework);
-        
-        // Remove firework after animation completes
-        setTimeout(() => {
-          firework.remove();
-        }, 3000);
-      };
-      
-      // Launch initial fireworks
-      for (let i = 0; i < numFireworks / 2; i++) {
-        setTimeout(() => {
-          launchFirework();
-        }, i * 300);
-      }
-      
-      // Continue launching fireworks periodically
-      setInterval(() => {
-        launchFirework();
-      }, 2000);
-    }
-    
-    // Show the Eid greeting message and launch confetti when clicked
-    function showGreeting() {
-      // Show the message
-      document.getElementById('messageBox').style.display = 'block';
-      
-      // Show and create confetti
-      const confettiContainer = document.getElementById('confetti');
-      confettiContainer.style.display = 'block';
-      createConfetti();
-      
-      // Hide the initial button
-      document.getElementById('tapButton').style.display = 'none';
-      
-      // Create fireworks
-      createFireworks();
-    }
-    
-    // Create colorful confetti
-    function createConfetti() {
-      const colors = ['#e84c3d', '#3498db', '#e67e22', '#2ecc71', '#9b59b6', '#f1c40f'];
-      const confettiContainer = document.getElementById('confetti');
-      const confettiCount = 150;
-      
-      for (let i = 0; i < confettiCount; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        
-        // Random position, rotation, and delay
-        const x = Math.random() * 100;
-        const delay = Math.random() * 2;
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
-        confetti.style.left = `${x}%`;
-        confetti.style.backgroundColor = color;
-        confetti.style.animationDelay = `${delay}s`;
-        
-        // Random shapes (square, circle, triangle)
-        const shape = Math.floor(Math.random() * 3);
-        if (shape === 0) {
-          confetti.style.borderRadius = '50%';
-        } else if (shape === 1) {
-          confetti.style.borderRadius = '0';
-        } else {
-          confetti.style.width = '0';
-          confetti.style.height = '0';
-          confetti.style.backgroundColor = 'transparent';
-          confetti.style.borderLeft = '6px solid transparent';
-          confetti.style.borderRight = '6px solid transparent';
-          confetti.style.borderBottom = '12px solid ' + color;
-        }
-        
-        confettiContainer.appendChild(confetti);
-      }
-      
-      // Remove confetti after animation completes
-      setTimeout(() => {
-        confettiContainer.style.display = 'none';
-        confettiContainer.innerHTML = '';
-      }, 6000);
-    }
-    
-    // Show the form to enter the user's greeting
-    function showForm() {
-      document.getElementById('sendGreetingButton').style.display = 'none';
-      document.getElementById('formContainer').style.display = 'block';
-    }
-    
-    // Function to handle form submission
-    function submitForm(event) {
-      event.preventDefault();
-      
-      let name = document.getElementById('userName').value;
-      let message = document.getElementById('userMessage').value;
-      
-      // Display the message below the form
-      document.getElementById('greetingDisplay').textContent = `${name}: ${message}`;
-      document.getElementById('userGreeting').style.display = 'block';
-      
-      // Clear the form
-      document.getElementById('greetingForm').reset();
-    }
-    
-    // Initialize scene elements on page load
-    window.onload = function() {
-      createStars();
-    };
-  </script>
-</body>
-</html>
-
+      <!-- Link to view all greetings -->
+      <a href="all-greetings.html" class="
