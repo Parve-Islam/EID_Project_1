@@ -1066,121 +1066,116 @@
     <input type="text" id="adminKeyInput" placeholder="Enter admin key" required>
     <button id="verifyAdminKeyButton">Verify</button>
   </div>
+<script>
+  // Create stars
+  function createStars() {
+    const starsContainer = document.getElementById('stars');
+    const numStars = Math.floor(window.innerWidth / 5);
 
-  
-  
-    
-    
-   
-   
-        
-            
-   <script>
-    // Create stars
-    function createStars() {
-      const starsContainer = document.getElementById('stars');
-      const numStars = Math.floor(window.innerWidth / 5);
-
-      for (let i = 0; i < numStars; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.width = Math.random() * 3 + 'px';
-        star.style.height = star.style.width;
-        star.style.top = Math.random() * 60 + '%';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.animationDelay = Math.random() * 3 + 's';
-        starsContainer.appendChild(star);
-      }
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.width = Math.random() * 3 + 'px';
+      star.style.height = star.style.width;
+      star.style.top = Math.random() * 60 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      starsContainer.appendChild(star);
     }
+  }
 
-    // Handle 'Celebrate Eid' button click
-    document.getElementById('celebrateButton').addEventListener('click', function() {
-      document.getElementById('eidMubarakContainer').style.display = 'none';
-      document.getElementById('message').style.display = 'block';
-      document.getElementById('greetingForm').style.display = 'block';
-      createConfetti();
-      createFireworks();
-    });
+  // Handle 'Celebrate Eid' button click
+  document.getElementById('celebrateButton').addEventListener('click', function() {
+    document.getElementById('eidMubarakContainer').style.display = 'none';
+    document.getElementById('message').style.display = 'block';
+    document.getElementById('greetingForm').style.display = 'block';
+    createConfetti();
+    createFireworks();
+  });
 
-    // Submit greeting functionality
-    document.getElementById('submitGreeting').addEventListener('click', function() {
-      const name = document.getElementById('nameInput').value.trim();
-      const greeting = document.getElementById('greetingInput').value.trim();
+  // Submit greeting functionality
+  document.getElementById('submitGreeting').addEventListener('click', function() {
+    const name = document.getElementById('nameInput').value.trim();
+    const greeting = document.getElementById('greetingInput').value.trim();
 
-      if (name && greeting) {
-        const newGreeting = { name: name, greeting: greeting, timestamp: new Date().toISOString() };
-        let greetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
-        greetings.push(newGreeting);
-        localStorage.setItem('eidGreetings', JSON.stringify(greetings));
+    if (name && greeting) {
+      const newGreeting = { name: name, greeting: greeting, timestamp: new Date().toISOString() };
+      let greetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
+      greetings.push(newGreeting);
+      localStorage.setItem('eidGreetings', JSON.stringify(greetings));
 
-        document.getElementById('greetingDisplay').textContent = `"${greeting}" - ${name}`;
-        document.getElementById('userGreeting').style.display = 'block';
+      document.getElementById('greetingDisplay').textContent = `"${greeting}" - ${name}`;
+      document.getElementById('userGreeting').style.display = 'block';
 
-        document.getElementById('nameInput').value = '';
-        document.getElementById('greetingInput').value = '';
-        updateGreetingsList();
-      }
-    });
+      document.getElementById('nameInput').value = '';
+      document.getElementById('greetingInput').value = '';
+      updateGreetingsList();
 
-    // Admin key verification functionality
-    const adminKey = 'admin123';
-    const storedAdminKey = localStorage.getItem('adminKey');
-
-    if (storedAdminKey === adminKey) {
-      document.getElementById('adminKeyForm').style.display = 'none';
-      document.getElementById('eidMubarakContainer').style.display = 'block';
-    } else {
+      // Show admin key form after greeting
       document.getElementById('adminKeyForm').style.display = 'block';
     }
+  });
 
-    document.getElementById('verifyAdminKeyButton').addEventListener('click', function() {
-      const adminKeyInput = document.getElementById('adminKeyInput').value.trim();
-      if (adminKeyInput === adminKey) {
-        localStorage.setItem('adminKey', adminKey);
-        document.getElementById('adminKeyForm').style.display = 'none';
-        document.getElementById('eidMubarakContainer').style.display = 'block';
-        alert('Admin authenticated!');
-      } else {
-        alert('Incorrect Admin Key!');
-      }
-    });
+  // Admin key verification functionality
+  const adminKey = 'admin123';
+  const storedAdminKey = localStorage.getItem('adminKey');
 
-    // Show all greetings (admin only)
-    document.getElementById('viewAllButton').addEventListener('click', function() {
-      if (storedAdminKey === adminKey) {
-        document.getElementById('allGreetingsModal').style.display = 'flex';
-      } else {
-        alert('You must be an Admin to view all greetings.');
-      }
-    });
+  if (storedAdminKey === adminKey) {
+    document.getElementById('adminKeyForm').style.display = 'none';
+    document.getElementById('eidMubarakContainer').style.display = 'block';
+  } else {
+    document.getElementById('adminKeyForm').style.display = 'none';
+  }
 
-    // Close all greetings modal
-    document.getElementById('closeModal').addEventListener('click', function() {
-      document.getElementById('allGreetingsModal').style.display = 'none';
-    });
+  document.getElementById('verifyAdminKeyButton').addEventListener('click', function() {
+    const adminKeyInput = document.getElementById('adminKeyInput').value.trim();
+    if (adminKeyInput === adminKey) {
+      localStorage.setItem('adminKey', adminKey);
+      document.getElementById('adminKeyForm').style.display = 'none';
+      alert('Admin authenticated!');
+      // Show the main content once authenticated
+      document.getElementById('eidMubarakContainer').style.display = 'block';
+    } else {
+      alert('Incorrect Admin Key!');
+    }
+  });
 
-    // Update the greetings list in the modal
-    function updateGreetingsList() {
-      const greetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
-      const allGreetingsList = document.getElementById('allGreetingsList');
-      allGreetingsList.innerHTML = '';
+  // Show all greetings (admin only)
+  document.getElementById('viewAllButton').addEventListener('click', function() {
+    if (storedAdminKey === adminKey) {
+      document.getElementById('allGreetingsModal').style.display = 'flex';
+    } else {
+      alert('You must be an Admin to view all greetings.');
+    }
+  });
 
-      if (greetings.length === 0) {
-        allGreetingsList.innerHTML = '<p>No greetings yet. Be the first to send an Eid greeting!</p>';
-      }
+  // Close all greetings modal
+  document.getElementById('closeModal').addEventListener('click', function() {
+    document.getElementById('allGreetingsModal').style.display = 'none';
+  });
 
-      greetings.forEach(item => {
-        const greetingEl = document.createElement('div');
-        greetingEl.className = 'greeting-item';
-        const date = new Date(item.timestamp);
-        const formattedDate = date.toLocaleString();
-        greetingEl.innerHTML = `<p>"${item.greeting}"</p><p>- ${item.name}</p><small>${formattedDate}</small>`;
-        allGreetingsList.appendChild(greetingEl);
-      });
+  // Update the greetings list in the modal
+  function updateGreetingsList() {
+    const greetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
+    const allGreetingsList = document.getElementById('allGreetingsList');
+    allGreetingsList.innerHTML = '';
+
+    if (greetings.length === 0) {
+      allGreetingsList.innerHTML = '<p>No greetings yet. Be the first to send an Eid greeting!</p>';
     }
 
-    // Initialize greetings list
-    updateGreetingsList();
-  </script>
+    greetings.forEach(item => {
+      const greetingEl = document.createElement('div');
+      greetingEl.className = 'greeting-item';
+      const date = new Date(item.timestamp);
+      const formattedDate = date.toLocaleString();
+      greetingEl.innerHTML = `<p>"${item.greeting}"</p><p>- ${item.name}</p><small>${formattedDate}</small>`;
+      allGreetingsList.appendChild(greetingEl);
+    });
+  }
+
+  // Initialize greetings list
+  updateGreetingsList();
+</script>
 </body>
 </html>
