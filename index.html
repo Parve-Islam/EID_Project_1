@@ -742,6 +742,7 @@
       padding: 15px;
       margin-top: 20px;
       animation: fadeIn 1s ease-out;
+      display: none;
     }
     
     #greetingDisplay {
@@ -772,8 +773,8 @@
       }
     }
     
-    /* View all greetings link */
-    .view-all-link {
+    /* View all greetings button */
+    .view-all-button {
       margin-top: 15px;
       display: inline-block;
       padding: 8px 16px;
@@ -783,9 +784,10 @@
       text-decoration: none;
       font-weight: 500;
       transition: all 0.3s;
+      cursor: pointer;
     }
     
-    .view-all-link:hover {
+    .view-all-button:hover {
       background-color: rgba(255, 255, 255, 0.3);
     }
     
@@ -843,7 +845,73 @@
       margin-bottom: 5px;
     }
     
-    /* Material icons (use CDN in real implementation) */
+    /* All greetings modal */
+    #allGreetingsModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    
+    .greetings-content {
+      background-color: white;
+      color: #333;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 15px;
+      padding: 25px;
+      position: relative;
+    }
+    
+    .close-button {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 30px;
+      height: 30px;
+      background-color: #e84c3d;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .greeting-item {
+      padding: 15px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .greeting-item:last-child {
+      border-bottom: none;
+    }
+    
+    .greeting-item small {
+      display: block;
+      color: #777;
+      margin-top: 5px;
+      font-size: 0.8em;
+    }
+    
+    .eid-decoration {
+      text-align: center;
+      margin: 15px 0;
+      font-size: 24px;
+      color: #2e7d32;
+    }
+    
+    /* Material icons */
     .material-icons {
       font-family: 'Material Icons';
       font-weight: normal;
@@ -914,7 +982,8 @@
       <div class="leg leg1"></div>
       <div class="leg leg2"></div>
       <div class="leg leg3"></div>
-      <div class="leg leg4"></div>
+      <div class="leg leg4
+<div class="leg leg4"></div>
       <div class="tail"></div>
     </div>
     
@@ -934,59 +1003,60 @@
     <!-- Clouds -->
     <div class="cloud cloud1"></div>
     <div class="cloud cloud2"></div>
-    
-    <!-- Fireworks container -->
-    <div id="fireworks"></div>
   </div>
   
+  <!-- Confetti container -->
+  <div class="confetti-container" id="confettiContainer"></div>
+
+  <!-- Main content container -->
   <div class="container">
     <h1>Eid Mubarak!</h1>
+    <p>Click the button below to celebrate Eid with us!</p>
+    <button class="button" id="celebrateButton">Celebrate Eid</button>
     
-    <!-- Tap Here Button -->
-    <button class="button" id="tapButton" onclick="showGreeting()">Join The Celebration</button>
-    
-    <!-- Eid Greeting Message -->
-    <div class="message" id="messageBox">
-      <p>May this Eid bring joy, happiness, and prosperity to you and your loved ones. Wishing you peace and blessings on this special day!</p>
-      <button class="button" id="sendGreetingButton" onclick="showForm()">Share Your Eid Wishes</button>
+    <div class="message" id="message">
+      May this Eid bring joy, happiness, peace and prosperity to you and your family. Eid Mubarak!
     </div>
     
-    <!-- Contact Form -->
-    <div class="form-container" id="formContainer">
+    <div class="form-container" id="greetingForm">
       <h2>Send Your Eid Greeting</h2>
-      <form id="greetingForm" onsubmit="submitForm(event)">
-        <input type="text" id="userName" placeholder="Your Name" required>
-        <textarea id="userMessage" placeholder="Write your heartfelt Eid message here..." required></textarea>
-        <button type="submit">Send Blessing</button>
-      </form>
-      <div id="userGreeting" style="display:none;">
-        <h3>Your Eid Message:</h3>
-        <p id="greetingDisplay"></p>
-      </div>
-
-        <!-- Link to view all greetings -->
-<a href="all-greetings.html" class="view-all-link">View All Eid Greetings</a>
+      <input type="text" id="nameInput" placeholder="Your Name" required>
+      <textarea id="greetingInput" placeholder="Write your Eid greeting here..." required></textarea>
+      <button id="submitGreeting">Send Greeting</button>
     </div>
     
-    <!-- Confetti container -->
-    <div class="confetti-container" id="confettiContainer"></div>
+    <div id="userGreeting">
+      <h3>Your Eid Greeting</h3>
+      <div id="greetingDisplay"></div>
+      <div class="view-all-button" id="viewAllButton">View All Greetings</div>
+    </div>
+  </div>
+  
+  <!-- All greetings modal -->
+  <div id="allGreetingsModal">
+    <div class="greetings-content">
+      <div class="close-button" id="closeModal">×</div>
+      <h2>Eid Greetings From Everyone</h2>
+      <div class="eid-decoration">☪️ ✨ ☪️</div>
+      <div id="allGreetingsList"></div>
+    </div>
   </div>
   
   <!-- Mobile navigation bar -->
   <div class="nav-bar">
-    <button class="nav-button">
+    <button class="nav-button" id="homeNav">
       <i class="material-icons">home</i>
       <span>Home</span>
     </button>
-    <button class="nav-button" onclick="showForm()">
-      <i class="material-icons">message</i>
-      <span>Greet</span>
+    <button class="nav-button" id="celebrateNav">
+      <i class="material-icons">celebration</i>
+      <span>Celebrate</span>
     </button>
-    <button class="nav-button">
-      <i class="material-icons">people</i>
-      <span>Community</span>
+    <button class="nav-button" id="greetingNav">
+      <i class="material-icons">mail</i>
+      <span>Greeting</span>
     </button>
-    <button class="nav-button">
+    <button class="nav-button" id="infoNav">
       <i class="material-icons">info</i>
       <span>About</span>
     </button>
@@ -996,388 +1066,200 @@
     // Create stars
     function createStars() {
       const starsContainer = document.getElementById('stars');
-      const numberOfStars = window.innerWidth < 480 ? 30 : 50;
+      const numStars = Math.floor(window.innerWidth / 5);
       
-      for (let i = 0; i < numberOfStars; i++) {
+      for (let i = 0; i < numStars; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        star.style.width = Math.random() * 3 + 1 + 'px';
+        star.style.width = Math.random() * 3 + 'px';
         star.style.height = star.style.width;
-        star.style.top = Math.random() * 40 + '%';
+        star.style.top = Math.random() * 60 + '%';
         star.style.left = Math.random() * 100 + '%';
         star.style.animationDelay = Math.random() * 3 + 's';
         starsContainer.appendChild(star);
       }
     }
     
-    // Show greeting message
-    function showGreeting() {
-      document.getElementById('tapButton').style.display = 'none';
-      document.getElementById('messageBox').style.display = 'block';
-      createFireworks();
-      showConfetti();
-    }
-    
-    // Show form
-    function showForm() {
-      document.getElementById('messageBox').style.display = 'none';
-      document.getElementById('formContainer').style.display = 'block';
-    }
-    
-    // Submit form
-    function submitForm(event) {
-      event.preventDefault();
-      const name = document.getElementById('userName').value;
-      const message = document.getElementById('userMessage').value;
-      
-      document.getElementById('greetingDisplay').innerHTML = `<strong>${name}:</strong> ${message}`;
-      document.getElementById('userGreeting').style.display = 'block';
-      document.getElementById('greetingForm').reset();
-      
-      // Would typically send to server here
-      console.log('Greeting submitted:', { name, message });
-    }
-    
     // Create confetti
-    function showConfetti() {
-      const confettiContainer = document.getElementById('confettiContainer');
-      confettiContainer.style.display = 'block';
+    function createConfetti() {
+      const container = document.getElementById('confettiContainer');
+      container.innerHTML = '';
+      container.style.display = 'block';
       
-      const colors = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#ff9ff3'];
-      const numberOfConfetti = window.innerWidth < 480 ? 50 : 100;
+      const colors = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#ff9ff3', '#f368e0'];
+      const numConfetti = 100;
       
-      for (let i = 0; i < numberOfConfetti; i++) {
+      for (let i = 0; i < numConfetti; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
         confetti.style.left = Math.random() * 100 + '%';
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.animationDelay = Math.random() * 2 + 's';
-        confettiContainer.appendChild(confetti);
+        confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+        container.appendChild(confetti);
       }
       
-      // Remove confetti after animation
       setTimeout(() => {
-        confettiContainer.innerHTML = '';
-        confettiContainer.style.display = 'none';
-      }, 6000);
+        container.style.display = 'none';
+      }, 5000);
     }
     
     // Create fireworks
     function createFireworks() {
-      const fireworksContainer = document.getElementById('fireworks');
-      const numberOfFireworks = window.innerWidth < 480 ? 8 : 15;
-      const colors = ['rgba(255, 0, 0, 0.8)', 'rgba(0, 255, 0, 0.8)', 'rgba(0, 0, 255, 0.8)', 
-                     'rgba(255, 255, 0, 0.8)', 'rgba(255, 0, 255, 0.8)', 'rgba(0, 255, 255, 0.8)'];
+      const scene = document.querySelector('.scene');
+      const numFireworks = 10;
       
-      for (let i = 0; i < numberOfFireworks; i++) {
+      const colors = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#ff9ff3'];
+      
+      for (let i = 0; i < numFireworks; i++) {
         setTimeout(() => {
           const firework = document.createElement('div');
           firework.className = 'firework';
-          
-          // Position randomly in upper portion of screen
           firework.style.left = Math.random() * 100 + '%';
-          firework.style.top = Math.random() * 50 + 5 + '%';
+          firework.style.top = Math.random() * 60 + '%';
+          firework.style.boxShadow = `0 0 10px 5px ${colors[Math.floor(Math.random() * colors.length)]}, 
+                        0 0 20px 10px ${colors[Math.floor(Math.random() * colors.length)]}, 
+                        0 0 30px 15px ${colors[Math.floor(Math.random() * colors.length)]}`;
           
-          // Random color
-          const color = colors[Math.floor(Math.random() * colors.length)];
-          firework.style.boxShadow = `0 0 10px 5px ${color}, 0 0 20px 10px ${color.replace('0.8', '0.6')}, 0 0 30px 15px ${color.replace('0.8', '0.4')}`;
+          scene.appendChild(firework);
           
-          fireworksContainer.appendChild(firework);
-          
-          // Remove after animation completes
           setTimeout(() => {
-            firework.remove();
+            scene.removeChild(firework);
           }, 3000);
-        }, i * 500); // Stagger firework launch
+        }, i * 300);
       }
     }
     
-    // Initialize when page loads
-    window.onload = function() {
+    // Event handlers
+    document.addEventListener('DOMContentLoaded', function() {
       createStars();
-    };
-  </script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eid Greetings Sharing</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #2e7d32;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        button {
-            background-color: #2e7d32;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #1b5e20;
-        }
-
-        .greeting-display {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #e8f5e9;
-            border-radius: 8px;
-            border-left: 5px solid #2e7d32;
-            display: none;
-        }
-
-        #viewAllContainer {
-            margin-top: 30px;
-            text-align: center;
-            display: none;
-        }
-
-        #allGreetings {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .greetings-content {
-            background-color: white;
-            width: 80%;
-            max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 30px;
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #f44336;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .greeting-item {
-            padding: 15px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .greeting-item:last-child {
-            border-bottom: none;
-        }
-
-        .greeting-item small {
-            color: #777;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .eid-decoration {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 24px;
-            color: #2e7d32;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Eid Mubarak Greetings</h1>
+      
+      const celebrateButton = document.getElementById('celebrateButton');
+      const message = document.getElementById('message');
+      const greetingForm = document.getElementById('greetingForm');
+      const submitGreeting = document.getElementById('submitGreeting');
+      const nameInput = document.getElementById('nameInput');
+      const greetingInput = document.getElementById('greetingInput');
+      const userGreeting = document.getElementById('userGreeting');
+      const greetingDisplay = document.getElementById('greetingDisplay');
+      const viewAllButton = document.getElementById('viewAllButton');
+      const allGreetingsModal = document.getElementById('allGreetingsModal');
+      const closeModal = document.getElementById('closeModal');
+      const allGreetingsList = document.getElementById('allGreetingsList');
+      
+      // Navigation buttons
+      const homeNav = document.getElementById('homeNav');
+      const celebrateNav = document.getElementById('celebrateNav');
+      const greetingNav = document.getElementById('greetingNav');
+      const infoNav = document.getElementById('infoNav');
+      
+      // Store greetings
+      let greetings = [];
+      
+      // Get stored greetings from localStorage
+      const storedGreetings = localStorage.getItem('eidGreetings');
+      if (storedGreetings) {
+        greetings = JSON.parse(storedGreetings);
+      }
+      
+      // Celebrate button click
+      celebrateButton.addEventListener('click', function() {
+        message.style.display = 'block';
+        greetingForm.style.display = 'block';
+        createConfetti();
+        createFireworks();
+      });
+      
+      // Submit greeting
+      submitGreeting.addEventListener('click', function() {
+        const name = nameInput.value.trim();
+        const greeting = greetingInput.value.trim();
         
-        <div class="eid-decoration">✧ ✧ ✧ ☪️ ✧ ✧ ✧</div>
-        
-        <form id="greetingForm">
-            <div class="form-group">
-                <label for="userName">Your Name:</label>
-                <input type="text" id="userName" required>
-            </div>
-            <div class="form-group">
-                <label for="userMessage">Your Eid Greeting Message:</label>
-                <textarea id="userMessage" required></textarea>
-            </div>
-            <button type="submit">Share Your Greeting</button>
-        </form>
-        
-        <div id="userGreeting" class="greeting-display">
-            <h3>Your Greeting:</h3>
-            <p id="greetingDisplay"></p>
-        </div>
-        
-        <div id="viewAllContainer">
-            <button id="viewAllButton">View All Greetings</button>
-        </div>
-    </div>
-    
-    <div id="allGreetings">
-        <div class="greetings-content">
-            <div class="close-button" id="closeAllGreetings">✕</div>
-            <h2>All Eid Greetings</h2>
-            <div class="eid-decoration">✧ ✧ ✧ ☪️ ✧ ✧ ✧</div>
-            <div id="greetingsList"></div>
-        </div>
-    </div>
-
-    <script>
-        // Submit form
-        function submitForm(event) {
-            event.preventDefault();
-            const name = document.getElementById('userName').value;
-            const message = document.getElementById('userMessage').value;
-            
-            // Display the greeting on the current page
-            document.getElementById('greetingDisplay').innerHTML = `<strong>${name}:</strong> ${message}`;
-            document.getElementById('userGreeting').style.display = 'block';
-            document.getElementById('greetingForm').reset();
-            
-            // Save greeting to localStorage
-            const newGreeting = {
-                name: name,
-                message: message,
-                date: new Date().toISOString()
-            };
-            
-            // Get existing greetings
-            const existingGreetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
-            
-            // Add new greeting
-            existingGreetings.push(newGreeting);
-            
-            // Save back to localStorage
-            localStorage.setItem('eidGreetings', JSON.stringify(existingGreetings));
-            
-            // Show success message
-            alert('Your greeting has been shared! View all greetings to see messages from everyone.');
-            
-            // Show the view all button
-            document.getElementById('viewAllContainer').style.display = 'block';
+        if (name && greeting) {
+          const newGreeting = {
+            name: name,
+            greeting: greeting,
+            timestamp: new Date().toISOString()
+          };
+          
+          greetings.push(newGreeting);
+          localStorage.setItem('eidGreetings', JSON.stringify(greetings));
+          
+          greetingDisplay.textContent = `"${greeting}" - ${name}`;
+          userGreeting.style.display = 'block';
+          
+          nameInput.value = '';
+          greetingInput.value = '';
+          
+          updateGreetingsList();
         }
-
-        // Load and display all greetings
-        function displayAllGreetings() {
-            const greetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
-            const greetingsList = document.getElementById('greetingsList');
-            
-            // Clear any existing content
-            greetingsList.innerHTML = '';
-            
-            if (greetings.length === 0) {
-                greetingsList.innerHTML = '<p>No greetings yet. Be the first to share!</p>';
-                return;
-            }
-            
-            // Sort greetings by date (newest first)
-            greetings.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            // Display each greeting
-            greetings.forEach(greeting => {
-                const formattedDate = new Date(greeting.date).toLocaleString();
-                const greetingItem = document.createElement('div');
-                greetingItem.className = 'greeting-item';
-                greetingItem.innerHTML = `
-                    <p><strong>${greeting.name}:</strong> ${greeting.message}</p>
-                    <small>Posted on: ${formattedDate}</small>
-                `;
-                greetingsList.appendChild(greetingItem);
-            });
+      });
+      
+      // View all greetings
+      viewAllButton.addEventListener('click', function() {
+        allGreetingsModal.style.display = 'flex';
+      });
+      
+      // Close modal
+      closeModal.addEventListener('click', function() {
+        allGreetingsModal.style.display = 'none';
+      });
+      
+      // Update greetings list
+      function updateGreetingsList() {
+        allGreetingsList.innerHTML = '';
+        
+        if (greetings.length === 0) {
+          allGreetingsList.innerHTML = '<p>No greetings yet. Be the first to send an Eid greeting!</p>';
+          return;
         }
-
-        // Add event listeners when the DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Form submission
-            const form = document.getElementById('greetingForm');
-            if (form) {
-                form.addEventListener('submit', submitForm);
-            }
-            
-            // View all greetings button
-            const viewButton = document.getElementById('viewAllButton');
-            if (viewButton) {
-                viewButton.addEventListener('click', function() {
-                    displayAllGreetings();
-                    document.getElementById('allGreetings').style.display = 'flex';
-                });
-            }
-            
-            // Close button for all greetings
-            const closeButton = document.getElementById('closeAllGreetings');
-            if (closeButton) {
-                closeButton.addEventListener('click', function() {
-                    document.getElementById('allGreetings').style.display = 'none';
-                });
-            }
-            
-            // Check if there are any greetings to display on page load
-            const existingGreetings = JSON.parse(localStorage.getItem('eidGreetings')) || [];
-            if (existingGreetings.length > 0) {
-                document.getElementById('viewAllContainer').style.display = 'block';
-            }
+        
+        // Sort by newest first
+        const sortedGreetings = [...greetings].sort((a, b) => {
+          return new Date(b.timestamp) - new Date(a.timestamp);
         });
-    </script>
+        
+        sortedGreetings.forEach(item => {
+          const greetingEl = document.createElement('div');
+          greetingEl.className = 'greeting-item';
+          
+          const date = new Date(item.timestamp);
+          const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+          
+          greetingEl.innerHTML = `
+            <p>"${item.greeting}"</p>
+            <p>- ${item.name}</p>
+            <small>${formattedDate}</small>
+          `;
+          
+          allGreetingsList.appendChild(greetingEl);
+        });
+      }
+      
+      // Navigation functionality
+      homeNav.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      celebrateNav.addEventListener('click', function() {
+        celebrateButton.click();
+      });
+      
+      greetingNav.addEventListener('click', function() {
+        if (greetingForm.style.display !== 'block') {
+          celebrateButton.click();
+        }
+        setTimeout(() => {
+          greetingForm.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      });
+      
+      infoNav.addEventListener('click', function() {
+        alert('Eid Mubarak Celebration App\nCreated with love for the Eid festival.');
+      });
+      
+      // Initialize greetings list
+      updateGreetingsList();
+    });
+  </script>
 </body>
 </html>
